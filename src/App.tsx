@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import ItemCard from "./components/ItemCard";
+import UserCard from "./components/UserCard";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="flex justify-center items-center w-screen h-screen">
+        <div className="w-11/12 h-5/6 md:w-9/12 md:h-5/6 overflow-y-auto flex flex-col">
+          <div className="w-full">
+            <ItemCard />
+          </div>
+          <div className="w-full flex">
+            <div className="w-1/3 flex justify-start items-start">
+              <UserCard />
+            </div>
+            <div className="w-1/3 flex justify-center items-center">
+              <UserCard />
+            </div>
+            <div className="w-1/3 flex justify-end items-end">
+              <UserCard />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
