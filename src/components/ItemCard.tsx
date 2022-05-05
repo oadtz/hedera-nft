@@ -20,9 +20,9 @@ const ItemCard: React.FunctionComponent<IItemCardProps> = ({ tokenId }) => {
   };
 
   const handleMintToken = async () => {
-    const newTokenId = await mintToken();
+    const newToken = await mintToken();
 
-    if (newTokenId) await fetchTokenInfo(newTokenId?.nft.nftId.toString());
+    if (newToken) await fetchTokenInfo(newToken?.nft.nftId.toString());
   };
 
   useEffect(() => {

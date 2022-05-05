@@ -1,4 +1,5 @@
 import faker from "@faker-js/faker";
+import { Buffer } from "buffer";
 import {
   AccountBalance,
   AccountBalanceQuery,
@@ -11,6 +12,7 @@ import {
   TokenId,
   TokenInfo,
   TokenInfoQuery,
+  TokenMintTransaction,
   TokenNftInfo,
   TokenNftInfoQuery,
   TokenSupplyType,
@@ -96,8 +98,18 @@ export const mintToken = async () => {
   const nftCreateSubmit = await nftCreateTxSign.execute(client);
   const nftCreateRx = await nftCreateSubmit.getReceipt(client);
 
-  if (nftCreateRx.tokenId)
-    return await getTokenInfo(nftCreateRx.tokenId?.toString());
+  if (nftCreateRx.tokenId) {
+    const mintTx = await new TokenMintTransaction()
+      .setTokenId(nftCreateRx.tokenId)
+      .setMetadata([
+        Buffer.from("QmNPCiNA3Dsu3K5FxDPMG5Q3fZRwVTg14EXA92uqEeSRXn"),
+      ])
+      .freezeWith(client);
+    const mintTxSign = await mintTx.sign(operatorKey);
+    await mintTxSign.execute(client);
+
+    return await getTokenInfo(nftCreateRx.tokenId.toString());
+  }
 };
 
 export const transferNFT = async (tokenId: string, targetAccount: IAccount) => {
@@ -114,13 +126,17 @@ export const transferNFT = async (tokenId: string, targetAccount: IAccount) => {
       (x) => x.accountId.toString() === ownerId.toString()
     ) as IAccount;
 
+    console.log(owner.accountName, targetAccount.accountName);
     const tokenTransferTx = await new TransferTransaction()
       .addNftTransfer(tokenId, 1, owner.accountId, targetAccount.accountId)
       .addHbarTransfer(owner.accountId, 100)
       .addHbarTransfer(targetAccount.accountId, -100)
       .freezeWith(client)
       .sign(owner.accountKey);
-    await tokenTransferTx.execute(client);
+    const tx = await tokenTransferTx.execute(client);
+    const rx = await tx.getReceipt(client);
+
+    console.log(rx);
   } catch (e) {
     alert(e);
   }
