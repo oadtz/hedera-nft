@@ -12,7 +12,6 @@ function App() {
       treasuryBalance.tokens?._map || []
     )?.[0]?.[0];
 
-    console.log(latestTokenId);
     if (latestTokenId) {
       setTokenId(latestTokenId);
     }
@@ -31,13 +30,13 @@ function App() {
           </div>
           <div className="w-full flex">
             <div className="w-1/3 flex justify-start items-start">
-              <UserCard />
+              <UserCard tokenId={tokenId} account={account.treasury} />
             </div>
             <div className="w-1/3 flex justify-center items-center">
-              <UserCard />
+              <UserCard tokenId={tokenId} account={account.alice} />
             </div>
             <div className="w-1/3 flex justify-end items-end">
-              <UserCard />
+              <UserCard tokenId={tokenId} account={account.bob} />
             </div>
           </div>
         </div>

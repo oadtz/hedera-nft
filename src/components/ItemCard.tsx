@@ -1,7 +1,7 @@
 import faker from "@faker-js/faker";
 import { TokenInfo, TokenNftInfo } from "@hashgraph/sdk";
 import { useEffect, useState } from "react";
-import { getTokenInfo } from "../libs/hashgraph";
+import { getTokenInfo, mintToken } from "../libs/hashgraph";
 
 interface IItemCardProps {
   tokenId: string;
@@ -17,6 +17,12 @@ const ItemCard: React.FunctionComponent<IItemCardProps> = ({ tokenId }) => {
     const token = await getTokenInfo(id);
 
     setCurrentToken(token);
+  };
+
+  const handleMintToken = async () => {
+    const newTokenId = await mintToken();
+
+    if (newTokenId) await fetchTokenInfo(newTokenId?.nft.nftId.toString());
   };
 
   useEffect(() => {
@@ -51,7 +57,10 @@ const ItemCard: React.FunctionComponent<IItemCardProps> = ({ tokenId }) => {
           <button className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">
             Delete
           </button>
-          <button className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none">
+          <button
+            className="px-6 py-2 transition ease-in duration-200 uppercase rounded-full hover:bg-gray-800 hover:text-white border-2 border-gray-900 focus:outline-none"
+            onClick={handleMintToken}
+          >
             Mint a New NFT
           </button>
         </div>
