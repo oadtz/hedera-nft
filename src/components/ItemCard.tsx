@@ -33,10 +33,10 @@ const ItemCard: React.FunctionComponent<IItemCardProps> = ({ tokenId }) => {
         </p>
         <p className="uppercase text-sm text-gray-400">ID: {tokenId}</p>
       </div>
-      <div className="prod-img h-auto flex justify-center items-center">
+      <div className="prod-img h-auto flex justify-center items-center my-6">
         <img
-          src="https://unsplash.com/photos/IJjfPInzmdk/download?force=true&w=1920"
-          className="w-1/4 object-cover object-center"
+          src="https://api.lorem.space/image/pizza?w=150&h=150"
+          className="w-1/5 object-cover object-center"
         />
       </div>
       <div className="prod-info grid gap-10">

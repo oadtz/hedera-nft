@@ -3,7 +3,7 @@ const UserCard: React.FunctionComponent = () => {
     <div className="w-2/3 bg-white shadow-lg rounded-lg overflow-hidden my-4 border border-gray-300">
       <img
         className="w-full h-56 object-cover object-center"
-        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+        src="https://api.lorem.space/image/face?w=150&h=150"
         alt="avatar"
       />
       <div className="py-4 px-6">
