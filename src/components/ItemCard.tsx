@@ -1,3 +1,4 @@
+import faker from "@faker-js/faker";
 import { TokenInfo, TokenNftInfo } from "@hashgraph/sdk";
 import { useEffect, useState } from "react";
 import { getTokenInfo } from "../libs/hashgraph";
@@ -35,7 +36,7 @@ const ItemCard: React.FunctionComponent<IItemCardProps> = ({ tokenId }) => {
       </div>
       <div className="prod-img h-auto flex justify-center items-center my-6">
         <img
-          src="https://api.lorem.space/image/pizza?w=150&h=150"
+          src={faker.image.abstract()}
           className="w-1/5 object-cover object-center"
         />
       </div>
